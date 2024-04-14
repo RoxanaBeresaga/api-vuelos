@@ -45,4 +45,21 @@ public class FlightController {
 
         return flightService.update(flight);
     }
+
+    @GetMapping("/origin")
+    public List<Flight> getFlightsByLocations(@RequestParam String origin) {
+        return flightService.getByOrigin(origin);
+    }
+
+    @GetMapping("/offers")
+    public List<Flight> getOffers() {
+        Integer offerPrice = 200;
+        return flightService.getOffers(offerPrice);
+    }
+
+
+    @GetMapping("/locations")
+    public List<Flight> getFlightsByLocations(@RequestParam String origin,@RequestParam String destiny) {
+        return flightService.getByOriginAndDestiny(origin,destiny);
+    }
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 public class Flight {
+   @Getter
    @Id
    @GeneratedValue(strategy=GenerationType.AUTO)
    private Long id;
@@ -22,6 +24,7 @@ public class Flight {
    private String destiny;
    private String departureTime;
    private String arrivingTime;
+   @Getter
    private double price;
    private String frequency;
 
@@ -33,4 +36,5 @@ public class Flight {
       this.price = price;
       this.frequency = frequency;
    }
+
 }
