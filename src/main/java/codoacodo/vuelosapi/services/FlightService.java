@@ -1,5 +1,7 @@
 package codoacodo.vuelosapi.services;
 
+import codoacodo.vuelosapi.configuration.FlightConfiguration;
+import codoacodo.vuelosapi.models.Dolar;
 import codoacodo.vuelosapi.models.Flight;
 import codoacodo.vuelosapi.repository.FlightRepository;
 import codoacodo.vuelosapi.utils.FlightUtils;
@@ -18,6 +20,9 @@ public class FlightService {
     FlightRepository flightRepository;
     @Autowired
     FlightUtils flightUtils;
+
+    @Autowired
+    FlightConfiguration flightConfiguration;
 
     public void createFlight(Flight flight){
 
@@ -56,6 +61,10 @@ public class FlightService {
     public List<Flight> getOffers(Integer offerPrice) {
         List<Flight> flights = flightRepository.findAll();
         return flightUtils.detectOffers(flights, offerPrice);
+    }
+
+    public Dolar getDolar() {
+        return flightConfiguration.fetchDolar();
     }
 }
 

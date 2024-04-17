@@ -1,5 +1,6 @@
 package codoacodo.vuelosapi.controller;
 
+import codoacodo.vuelosapi.models.Dolar;
 import codoacodo.vuelosapi.models.Flight;
 import codoacodo.vuelosapi.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,11 @@ public class FlightController {
     @GetMapping("/locations")
     public List<Flight> getFlightsByLocations(@RequestParam String origin,@RequestParam String destiny) {
         return flightService.getByOriginAndDestiny(origin,destiny);
+    }
+
+    @GetMapping("dolarprice")
+    public Dolar getDolar() {
+
+        return flightService.getDolar();
     }
 }
