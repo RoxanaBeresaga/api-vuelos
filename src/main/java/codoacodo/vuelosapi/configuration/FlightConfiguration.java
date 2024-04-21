@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Configuration
 public class FlightConfiguration {
 
@@ -19,5 +21,9 @@ public class FlightConfiguration {
         String apiUrl = "https://dolarapi.com/v1/dolares/tarjeta";
         return restTemplate.getForObject(apiUrl,Dolar.class);
     }
-
+    public Dolar[] fetchAllDollars() {
+        RestTemplate restTemplate = restTemplate();
+        String apiUrl = "https://dolarapi.com/v1/dolares";
+        return restTemplate.getForEntity(apiUrl,Dolar[].class).getBody();
+    }
 }

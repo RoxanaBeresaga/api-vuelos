@@ -3,6 +3,7 @@ package codoacodo.vuelosapi.services;
 import codoacodo.vuelosapi.configuration.FlightConfiguration;
 import codoacodo.vuelosapi.models.Dolar;
 import codoacodo.vuelosapi.models.Flight;
+import codoacodo.vuelosapi.models.FlightDto;
 import codoacodo.vuelosapi.repository.FlightRepository;
 import codoacodo.vuelosapi.utils.FlightUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
@@ -39,9 +41,11 @@ public class FlightService {
         flightRepository.deleteById(id);
     }
 
-    public List<Flight> getAllFlights(){
+    public List<FlightDto> getAllFlights(){
 
-        return flightRepository.findAll();
+        return flightRepository.findAll().stream()
+                       .map(flight -> flightUtils.flightMapper(flight,getDolarPrice()))
+                       .collect(Collectors.toList());
     }
 
     public Optional<Flight> update(Flight flight) {
@@ -62,14 +66,21 @@ public class FlightService {
         List<Flight> flights = flightRepository.findAll();
         return flightUtils.detectOffers(flights, offerPrice);
     }
-    /*
-    public Dolar getDolar() {
-        return flightConfiguration.fetchDolar();
-    }
-     */
 
-    public double getDolar() {
+    public Dolar getDolar() {
+        Dolar dolar = flightConfiguration.fetchDolar();
+        return dolar;
+    }
+
+
+
+    private double getDolarPrice() {
+
         return flightConfiguration.fetchDolar().getPromedio();
+    }
+
+    public List<Dolar> getAllDolars() {
+        return List.of(flightConfiguration.fetchAllDollars());
     }
 }
 
