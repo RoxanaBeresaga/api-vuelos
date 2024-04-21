@@ -14,6 +14,7 @@ public class Dolar {
     private LocalDateTime fechaActualizacion;
 
     public double getPromedio() {
+
         return ((getCompra() + getVenta())/2);
     }
 }

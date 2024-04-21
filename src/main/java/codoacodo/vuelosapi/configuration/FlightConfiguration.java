@@ -10,6 +10,7 @@ public class FlightConfiguration {
 
     @Bean
     public RestTemplate restTemplate(){
+
         return new RestTemplate();
     }
 
