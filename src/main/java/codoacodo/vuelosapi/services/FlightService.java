@@ -62,9 +62,14 @@ public class FlightService {
         List<Flight> flights = flightRepository.findAll();
         return flightUtils.detectOffers(flights, offerPrice);
     }
-
+    /*
     public Dolar getDolar() {
         return flightConfiguration.fetchDolar();
+    }
+     */
+
+    public double getDolar() {
+        return flightConfiguration.fetchDolar().getPromedio();
     }
 }
 
