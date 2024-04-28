@@ -41,11 +41,24 @@ public class FlightService {
         flightRepository.deleteById(id);
     }
 
-    public List<FlightDto> getAllFlights(){
+    public List<FlightDto> allFlights(){
+         double dolarPrice = getDolarPrice();
+         List<Flight> flights = flightRepository.findAll();
+         return flightUtils.flightMapper(flights, dolarPrice);
 
-        return flightRepository.findAll().stream()
+        /* double dolarPrice = getDolar();
+          List<FlightDto> flightDtos = new ArrayList<>();
+          List<Flight> flights = flightRepository.findAll();
+          for(Flight f: flights){
+              flightDtos.add(flightUtils.flightMapper(f, dolarPrice));
+          }
+        return flightDtos;
+         */
+
+
+       /* return flightRepository.findAll().stream()
                        .map(flight -> flightUtils.flightMapper(flight,getDolarPrice()))
-                       .collect(Collectors.toList());
+                       .collect(Collectors.toList()); */
     }
 
     public Optional<Flight> update(Flight flight) {
@@ -74,7 +87,7 @@ public class FlightService {
 
 
 
-    private double getDolarPrice() {
+    public double getDolarPrice() {
 
         return flightConfiguration.fetchDolar().getPromedio();
     }

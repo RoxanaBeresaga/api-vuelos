@@ -39,7 +39,7 @@ public class FlightController {
     @GetMapping("")
     public List<FlightDto> getAllFlights() {
 
-        return flightService.getAllFlights();
+        return flightService.allFlights();
     }
 
     @PutMapping("/update")
@@ -67,15 +67,14 @@ public class FlightController {
 
     @GetMapping("/dolar")
     public Dolar getDolar() {
-
         return flightService.getDolar();
     }
-    /*
+
     @GetMapping("/dolarprice")
     public double getDolarPrice() {
 
         return flightService.getDolarPrice();
-    }*/
+    }
 
     @GetMapping("/allDolars")
     public List<Dolar> getAllDolars() {
