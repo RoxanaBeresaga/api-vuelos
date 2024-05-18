@@ -18,9 +18,8 @@ public class FlightController {
     FlightService flightService;
 
     @PostMapping("/add")
-    public void createFlight(@RequestBody Flight flight){
-
-        flightService.createFlight(flight);
+    public Flight createFlight(@RequestBody Flight flight, @RequestParam Long companyId){
+        return flightService.createFlight(flight, companyId);
     }
 
     @GetMapping("/{id}")
@@ -29,8 +28,7 @@ public class FlightController {
         return flightService.findFlightById(id);
     }
 
-    @DeleteMapping("/eliminate/{id}")
-
+    @DeleteMapping("/delete/{id}")
     public void deleteFlight(@PathVariable Long id) {
 
         flightService.deleteFlightById(id);
@@ -50,6 +48,7 @@ public class FlightController {
 
     @GetMapping("/origin")
     public List<Flight> getFlightsByLocations(@RequestParam String origin) {
+
         return flightService.getByOrigin(origin);
     }
 
