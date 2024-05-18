@@ -1,9 +1,11 @@
 package codoacodo.vuelosapi.services;
 
 import codoacodo.vuelosapi.configuration.FlightConfiguration;
+import codoacodo.vuelosapi.models.Company;
 import codoacodo.vuelosapi.models.Dolar;
 import codoacodo.vuelosapi.models.Flight;
 import codoacodo.vuelosapi.models.FlightDto;
+import codoacodo.vuelosapi.repository.CompanyRepository;
 import codoacodo.vuelosapi.repository.FlightRepository;
 import codoacodo.vuelosapi.utils.FlightUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,15 @@ public class FlightService {
     @Autowired
     FlightConfiguration flightConfiguration;
 
-    public void createFlight(Flight flight){
+    @Autowired
+    CompanyRepository companyRepository;
 
-        flightRepository.save(flight);
+    public Flight createFlight(Flight flight, Long companyId) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new IllegalArgumentException("Company not found"));
+
+        flight.setCompany(company);
+        return flightRepository.save(flight);
     }
 
     public Optional<Flight> findFlightById(Long id) {
@@ -68,6 +76,7 @@ public class FlightService {
     }
 
     public List<Flight> getByOrigin(String origin) {
+
         return flightRepository.findByOrigin(origin);
     }
 
@@ -93,6 +102,7 @@ public class FlightService {
     }
 
     public List<Dolar> getAllDolars() {
+
         return List.of(flightConfiguration.fetchAllDollars());
     }
 }
